@@ -1,9 +1,0 @@
-# Dirs
-./Vehicle Detection
-./datasets/coco
-./datasets/Vehicle_Detection
-
-# Files
-./data/test_data/hanoi.jpg
-./data/test_data/highway_traffic.mp4
-./data/test_data/MotorwayInBristol.mp4
