@@ -1,5 +1,5 @@
 ultralytics==8.2.38
-cv2
+opencv-python
 torchvision
 torch
 flask

@@ -7,6 +7,8 @@ yolov10 = YOLOModel()
 
 @views.route('/')
 def index():
+    if not os.path.exists('GUI/static/predictions'):
+        os.makedirs('GUI/static/predictions', exist_ok=True)
     for file in os.listdir('GUI/static/predictions'):
         os.remove(f'GUI/static/predictions/{file}')
     return render_template('home.html', current_page='home')
