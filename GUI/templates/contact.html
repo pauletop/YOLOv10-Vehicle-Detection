@@ -22,9 +22,9 @@
         </strong>
         <span class="flex flex-wrap flex-col lg:flex-row gap-1">
           <span>
-            &middot; <a href="mailto:52100920@student.tdtu.edu.vn"
-              class="text-rose-700 no-underline hover:text-rose-300">
-              52100920
+            &middot; <a href="mailto:52100898@student.tdtu.edu.vn"
+              class="text-rose-700 no-underline hover:text-rose-300 send-email">
+              52100898
             </a>
           </span>
           <span class="italic flex-auto">
@@ -46,7 +46,7 @@
         <span class="flex flex-wrap flex-col lg:flex-row gap-1">
           <span>
             &middot; <a href="mailto:52100920@student.tdtu.edu.vn"
-              class="text-rose-700 no-underline hover:text-rose-300">
+              class="text-rose-700 no-underline hover:text-rose-300 send-email">
               52100920
             </a>
           </span>
@@ -61,4 +61,16 @@
       </p>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('.send-email').forEach((elemt) => {
+    elemt.addEventListener('click', function () {
+      let t = setTimeout(() => {
+        document.querySelector('#spinner').classList.add('hidden');
+      }, 1000);
+    });
+  });
+</script>
 {% endblock %}
