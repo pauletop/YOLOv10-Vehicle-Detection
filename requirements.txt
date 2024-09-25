@@ -1,0 +1,6 @@
+ultralytics==8.2.38
+cv2
+torchvision
+torch
+flask
+PyAV
