@@ -30,12 +30,13 @@
 </head>
 
 <body class="bg-red-50">
-  <div id="spinner"
-    class='flex fixed space-x-2 justify-center items-center bg-white bg-opacity-80 h-screen dark:invert top-0 left-0 w-full z-50 fade-in'>
-    <span class='sr-only'></span>
-    <div class='h-8 w-8 bg-clifford bg-opacity-80 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-    <div class='h-8 w-8 bg-clifford bg-opacity-80 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-    <div class='h-8 w-8 bg-clifford bg-opacity-80 rounded-full animate-bounce'></div>
+  <div id="spinner" class="fixed w-full h-screen z-50 bg-white bg-opacity-80 fade-in cursor-pointer">
+    <div class='flex space-x-2 justify-center items-center h-screen dark:invert top-0 left-0 w-full '>
+      <span class='sr-only'></span>
+      <div class='h-8 w-8 bg-clifford bg-opacity-80 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+      <div class='h-8 w-8 bg-clifford bg-opacity-80 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+      <div class='h-8 w-8 bg-clifford bg-opacity-80 rounded-full animate-bounce'></div>
+    </div>
   </div>
   <div class="m-1 border-red-500 bg-white rounded-lg shadow-md">
     <!-- nav bar -->
@@ -48,11 +49,11 @@
         </div>
         <div class="flex space-x-4">
           <a {{ current_page=="home" and "href=#" or "href=/" }}
-            class="{{current_page=='home' and 'text-gray-100' or 'text-gray-300'}} hover:text-white">Home</a>
+            class="{{current_page=='home' and 'text-gray-100 font-semibold' or 'text-gray-300'}} hover:text-white">Home</a>
           <a {{ current_page=="about" and "href=#" or "href=/about" }}
-            class="{{current_page=='about' and 'text-gray-100' or 'text-gray-300'}} hover:text-white">About</a>
+            class="{{current_page=='about' and 'text-gray-100 font-semibold' or 'text-gray-300'}} hover:text-white">About</a>
           <a {{ current_page=="contact" and "href=#" or "href=/contact" }}
-            class="{{current_page=='contact' and 'text-gray-100' or 'text-gray-300'}} hover:text-white">Contact</a>
+            class="{{current_page=='contact' and 'text-gray-100 font-semibold' or 'text-gray-300'}} hover:text-white">Contact</a>
           <!-- <a {{ current_page=="login" and "href=#" or "href=/login" }}
             class="{{current_page=='login' and 'text-gray-100' or 'text-gray-300'}} hover:text-white">Login</a> -->
         </div>
@@ -63,14 +64,14 @@
     </div>
 
     <footer class="bg-clifford p-4 rounded-b-lg">
-      <div class="container mx-auto text-center text-white dark:text-white">
+      <div class="container cursor-default mx-auto text-center text-white dark:text-white">
         <p>&copy; 2024 Vehicle Detection System</p>
         <!-- team members -->
         <!-- align to the right -->
-        <p class="flex flex-col cursor-pointer text-sm text-red-300">
+        <p class="flex flex-col text-sm text-red-300">
           Team Members:
-          <a class="hover:text-gray-100">Nguyen Minh Phu</a>
-          <a class="hover:text-gray-100">Le Hoang Khang</a>
+          <a class="hover:text-gray-100 cursor-pointer">Nguyen Minh Phu</a>
+          <a class="hover:text-gray-100 cursor-pointer">Le Hoang Khang</a>
         </p>
       </div>
     </footer>
