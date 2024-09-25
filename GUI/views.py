@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, redirect
 from .model import YOLOModel
 import os
+import time
 
 views = Blueprint('views', __name__)
 yolov10 = YOLOModel()
@@ -10,7 +11,10 @@ def index():
     if not os.path.exists('GUI/static/predictions'):
         os.makedirs('GUI/static/predictions', exist_ok=True)
     for file in os.listdir('GUI/static/predictions'):
-        os.remove(f'GUI/static/predictions/{file}')
+        # if exceeds 3 minutes, delete the file
+        if time.time() - os.path.getmtime(f'GUI/static/predictions/{file}') > 180:
+          os.remove(f'GUI/static/predictions/{file}')
+    # print status code of the request (maybe the redirect code is 302)
     return render_template('home.html', current_page='home')
 
 @views.route('/upload', methods=['POST', 'GET'])
@@ -19,6 +23,8 @@ def upload():
         return redirect('/')
     elif request.method == 'POST':
       # clear the uploads folder
+      if not os.path.exists('uploads'):
+        os.makedirs('uploads', exist_ok=True)
       for file in os.listdir('uploads'):
             os.remove(f'uploads/{file}')
 

@@ -17,7 +17,7 @@
     <div x-ref="dnd"
       class="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
       <input accept="image/*, video/*" type="file" id="files" name="files" multiple
-        class="absolute inset-0 z-30 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
+        class="absolute inset-0 z-20 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
         @change="addFiles($event)"
         @dragover="$refs.dnd.classList.add('border-red-500'); $refs.dnd.classList.add('ring-4'); $refs.dnd.classList.add('ring-inset'); $refs.dnd.classList.add('ring-red-50'); $refs.dnd.classList.add('text-red-300');"
         @dragleave="$refs.dnd.classList.remove('border-red-500'); $refs.dnd.classList.remove('ring-4'); $refs.dnd.classList.remove('ring-inset'); $refs.dnd.classList.remove('ring-red-50'); $refs.dnd.classList.remove('text-red-300');"
@@ -42,7 +42,7 @@
             class="relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none"
             style="padding-top: 100%" @dragstart="dragstart($event)" @dragend="fileDragging = null"
             :class="{'border-red-600': fileDragging == index}" draggable="true" :data-index="index">
-            <button class="absolute top-0 right-0 z-10 p-1 bg-white rounded-bl focus:outline-none" type="button"
+            <button class="absolute top-0 right-0 z-40 p-1 bg-white rounded-bl focus:outline-none" type="button"
               @click="remove(index)">
               <svg class="w-4 h-4 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
@@ -82,7 +82,7 @@
               </span>
             </div>
 
-            <div class="absolute inset-0 z-40 transition-colors duration-300" @dragenter="dragenter($event)"
+            <div class="absolute inset-0 z-30 transition-colors duration-300" @dragenter="dragenter($event)"
               @dragleave="fileDropping = null"
               :class="{'bg-red-200 bg-opacity-80': fileDropping == index && fileDragging != index}">
             </div>
@@ -143,7 +143,7 @@
     <div id="display" class="grid grid-cols-1 gap-4 {% if not is_full_view %}lg:grid-cols-2{% endif %}">
       {% for path in paths %}
       <span class=" relative flex items-center justify-center">
-        <button class="absolute top-0 right-0 z-10 p-1 bg-white rounded-bl focus:outline-none" type="button"
+        <button class="absolute top-0 right-0 z-40 p-1 bg-white rounded-bl focus:outline-none" type="button"
           title="Download" onclick="download(this)">
           <svg class="w-4 h-4 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
             class="bi bi-cloud-download" viewBox="0 0 16 16">
@@ -188,17 +188,26 @@
 <script src="https://unpkg.com/create-file-list"></script>
 <script src="static/js/uploadForm.js"></script>
 <script>
+  // async function download(target) {
+  //   const img = target.parentElement.querySelector("img");
+  //   const video = target.parentElement.querySelector("video");
+  //   const fileSource = (img || video.querySelector('source')).src;
+  //   const response = await fetch(fileSource).catch(console.error);
+  //   const blob = await response.blob().catch(console.error);
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement("a");
+  //   a.href = url;
+  //   a.download = 'detected_file' + (img ? '.jpg' : '.mp4');
+  //   a.click();
+  //   URL.revokeObjectURL(url);
+  // }
   function download(target) {
     const img = target.parentElement.querySelector("img");
     const video = target.parentElement.querySelector("video");
+    const fileSource = (img || video.querySelector('source')).src;
     const a = document.createElement("a");
-    if (img) {
-      a.href = img.src;
-      a.download = "output.jpg";
-    } else if (video) {
-      a.href = video.src;
-      a.download = "output.mp4";
-    }
+    a.href = fileSource;
+    a.download = 'detected_file' + (img ? '.jpg' : '.mp4');
     a.click();
   }
 </script>
