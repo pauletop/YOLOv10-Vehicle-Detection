@@ -1,6 +1,4 @@
-from flask import Flask, request, render_template
-import cv2
-import numpy as np
+from flask import Flask
 
 def create_app():
     app = Flask(__name__)

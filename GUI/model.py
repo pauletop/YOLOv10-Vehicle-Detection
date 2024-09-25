@@ -19,6 +19,11 @@ class YOLOModel:
     is_valid = False
     for result in results:
       ori_img = cv2.cvtColor(result.orig_img, cv2.COLOR_BGR2RGB).copy()
+      h, _, _ = ori_img.shape # for test image: (1620, 2880, 3)
+      # fontscale and thickness depend on the resolution of the input image
+      font_scale = 5 * h // 1620
+      thickness = 3 * h // 1620
+      
       boxes = result.boxes
       draw_data = sorted(zip(boxes.xyxy.cpu().numpy(), boxes.cls.cpu().numpy(), boxes.conf.cpu().numpy()), key=lambda x: x[2])
       if len(draw_data) > 0:
@@ -30,13 +35,13 @@ class YOLOModel:
         c1, c2 = (int(box[0]), int(box[1])), (int(box[2]), int(box[3]))
         cv2.rectangle(ori_img, c1, c2, self.rgb_colors[cat], 3)
         label = f'{self.names[int(cat)]} {prb:.2f}'
-        t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 5 , 3)[0]
+        t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, font_scale , thickness)[0]
         c2 = c1[0] + t_size[0], c1[1] - t_size[1] - 3
         cv2.rectangle(ori_img, c1, c2, self.rgb_colors[cat], -1)
-        cv2.putText(ori_img, label, (c1[0], c1[1] - 2), cv2.FONT_HERSHEY_PLAIN, 5, [225,255,255], 3)
+        cv2.putText(ori_img, label, (c1[0], c1[1] - 2), cv2.FONT_HERSHEY_PLAIN, font_scale, [225,255,255], thickness)
       summary = f'Total: {len(draw_data):02d} - ' + \
       ';'.join([f'{self.names[i]}: {carr[i]}' for i in range(len(self.names)) if carr[i] > 0])
-      cv2.putText(ori_img, summary, (20, 30), cv2.FONT_HERSHEY_PLAIN, 2, self.rgb_colors[4], 3)
+      cv2.putText(ori_img, summary, (20, 30), cv2.FONT_HERSHEY_PLAIN, 2, self.rgb_colors[4], thickness)
             
       frames.append(ori_img)
     return np.array(frames), is_valid
